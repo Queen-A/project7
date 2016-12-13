@@ -12,26 +12,46 @@ function transformPoint(event) {
 
 // Step 2: drawSquare and drawCircle functions
 function drawSquare(x, y, size, color) {
-  var newsquare = document.createElementNS(namespace, "square")
+  var newsquare = document.createElementNS(namespace, "rect")
       newsquare.setAttribute("x", x)
       newsquare.setAttribute("y", y)
-      newsquare.setAttribute("height", height)
-      newsquare.setAttribute("width", width)
+      newsquare.setAttribute("height", size)
+      newsquare.setAttribute("width", size)
       newsquare.setAttribute("fill", color)
-      canvas.appendChild(newsquare)
+      screen.appendChild(newsquare)
 }
 
 function drawCircle(x, y, size, color) {
   var newcircle = document.createElementNS(namespace, "circle")
     newcircle.setAttribute("cx", x)
     newcircle.setAttribute("cy", y)
-    newcircle.setAttribute("r", radius)
+    newcircle.setAttribute("r", size)
     newcircle.setAttribute("fill", color)
-    canvas.appendChild(newcircle)
+    screen.appendChild(newcircle)
 }
 
 // Step 3: Event listeners
 document.addEventListener("mousedown", function(e) {
-  // what do you want to do when the user presses down
-  // on the mouse button?
+  var pt = transformPoint(e)
+})
+
+document.addEventListener("mouseup", function(e) {
+  var pt = transformPoint(e)
+})
+
+document.addEventListener("mousemove", function(e) {
+  var pt = transformPoint(e)
+  var xpos = pt.x
+  var ypos = pt.y
+
+  var colorSelect =   document.getElementById("colorSelect").value
+  var sizeSelect =   document.getElementById("sizeSelect").value
+  var shapeSelect =   document.getElementById("shapeSelect").value
+
+  if (shapeSelect == "square") {
+    drawSquare(pt.x, pt.y, sizeSelect, colorSelect)
+  }
+  else if (shapeSelect == "circle") {
+    drawCircle(pt.x, pt.y, sizeSelect, colorSelect)
+  }
 })
