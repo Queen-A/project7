@@ -10,6 +10,8 @@ function transformPoint(event) {
   return mousept
 }
 
+var drawing = false;
+
 // Step 2: drawSquare and drawCircle functions
 function drawSquare(x, y, size, color) {
   var newsquare = document.createElementNS(namespace, "rect")
@@ -32,26 +34,30 @@ function drawCircle(x, y, size, color) {
 
 // Step 3: Event listeners
 document.addEventListener("mousedown", function(e) {
-  var pt = transformPoint(e)
+  drawing = true;
 })
 
 document.addEventListener("mouseup", function(e) {
-  var pt = transformPoint(e)
+  drawing = false;
 })
 
 document.addEventListener("mousemove", function(e) {
-  var pt = transformPoint(e)
-  var xpos = pt.x
-  var ypos = pt.y
 
-  var colorSelect =   document.getElementById("colorSelect").value
-  var sizeSelect =   document.getElementById("sizeSelect").value
-  var shapeSelect =   document.getElementById("shapeSelect").value
+  if (drawing == true) {
+    var pt = transformPoint(e)
+    var xpos = pt.x
+    var ypos = pt.y
 
-  if (shapeSelect == "square") {
-    drawSquare(pt.x, pt.y, sizeSelect, colorSelect)
+    var colorSelect =   document.getElementById("colorSelect").value
+    var sizeSelect =   document.getElementById("sizeSelect").value
+    var shapeSelect =   document.getElementById("shapeSelect").value
+
+    if (shapeSelect == "square") {
+      drawSquare(pt.x, pt.y, sizeSelect, colorSelect)
+    }
+    else if (shapeSelect == "circle") {
+      drawCircle(pt.x, pt.y, sizeSelect, colorSelect)
+    }
   }
-  else if (shapeSelect == "circle") {
-    drawCircle(pt.x, pt.y, sizeSelect, colorSelect)
-  }
+
 })
