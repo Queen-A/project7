@@ -12,6 +12,9 @@ function transformPoint(event) {
 
 var drawing = false;
 
+var rainbow = ["#b30000","#e60000","red","#ff3333","#ff6666","#ffcccc","#b34700","#b34700","orange","#ff8533","#ffa366","#ffe0cc","#808000","#cccc00","yellow", " #ffff4d",
+"#ffffb3","#003311","#00802b","green", "#66ff99", "#b3ffcc"," #001133", "#002b80","blue","#4d88ff","#b3ccff", "#400080" ,"indigo", " #d9b3ff","#884dff","violet", "#ccb3ff"]
+var rainbowIndex = 0;
 // Step 2: drawSquare and drawCircle functions
 function drawSquare(x, y, size, color) {
   var newsquare = document.createElementNS(namespace, "rect")
@@ -51,7 +54,13 @@ document.addEventListener("mousemove", function(e) {
     var colorSelect =   document.getElementById("colorSelect").value
     var sizeSelect =   document.getElementById("sizeSelect").value
     var shapeSelect =   document.getElementById("shapeSelect").value
-
+    if(colorSelect == "rainbow"){
+      colorSelect = rainbow[rainbowIndex]
+      rainbowIndex = rainbowIndex + 1
+      if(rainbowIndex > rainbow.length - 1) {
+        rainbowIndex = 0
+      }
+    }
     if (shapeSelect == "square") {
       drawSquare(pt.x, pt.y, sizeSelect, colorSelect)
     }
